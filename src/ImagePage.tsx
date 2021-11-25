@@ -1,5 +1,6 @@
-import react, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, Redirect } from 'react-router-dom';
 
 import PixlyAPI from "./PixlyAPI"
 import { ImageDataInterface } from './interfaces';
@@ -8,6 +9,8 @@ import EditPage from "./EditPage";
 import Loading from "./Loading";
 import ImageCard from "./ImageCard";
 import ImageBeingEdited from './ImageBeingEdited';
+import "./ImagePage.css";
+
 /** Renders single image on page
  * 
  * Props: None
@@ -37,7 +40,6 @@ function ImagePage() {
 
     async function startEdit() {
         const result = await PixlyAPI.startEdit(id);
-        console.log("startEdit fileLocation is: ", result)
         setFileLocation(result);
         setIsEditing(true);
     }
@@ -48,22 +50,47 @@ function ImagePage() {
         setCueRender(r => !r);
     }
 
+    async function saveEdits() {
+        const result = await PixlyAPI.saveEdits(id, fileLocation, '');
+        setIsEditing(false);
+        setImage(result);
+        return <Redirect push to={`/image/${result.id}`} />;
+    }
+
+    async function cancelEdits() {
+        setIsEditing(false);
+        return <Redirect push to={`/image/${id}`} />;
+    }
 
     if (isLoading) {
         return <Loading />
     }
 
     return (
-        < div > {
+        <div> {
             (!isEditing)
                 ? <div>
                     <ImageCard src={image.imgUrl} caption={image.caption}></ImageCard>
-                    <button onClick={startEdit}>Edit Image</button>
+                    <button className="btn btn-secondary" onClick={startEdit}>Edit Image</button>
                 </div>
-                : <div>
-                    <ImageBeingEdited fileLocation={fileLocation} />
-                    <EditPage id={id} handleEdit={handleEdit} fileLocation={fileLocation} />
-                </div>
+                : <React.Fragment>
+                    <div className="image-being-editted row">
+                        <div className="col-2"></div>
+                        <EditPage id={id} handleEdit={handleEdit} fileLocation={fileLocation} />
+                        <ImageBeingEdited fileLocation={fileLocation} />
+                        <div className="col-2"></div>
+                    </div>
+                    <button
+                        className="btn btn-success"
+                        onClick={saveEdits}>
+                        Save Edits
+                    </button>
+                    <button
+                        className="btn btn-secondary"
+                        onClick={cancelEdits}>
+                        Cancel Edits
+                    </button>
+                </React.Fragment>
         }
         </div >
     )

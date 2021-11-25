@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ImageDataInterface } from './interfaces';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://pixly-dorish.herokuapp.com';
 
 /** List of API calls for Pixly App */
 class PixlyAPI {
@@ -88,13 +88,15 @@ class PixlyAPI {
 
   static async saveEdits(id, fileLocation, caption): Promise<ImageDataInterface> {
     try {
+      console.log('in saveEdits', { id, fileLocation, caption });
       const resp = await axios.post(
         `${API_URL}/image/${id}/save_edits`,
         {
           'caption': caption,
           'file_location': fileLocation
         })
-      return resp.data.image_details; //Need to confirm
+      console.log('resp.data is:', resp.data);
+      return resp.data; //Need to confirm
     }
     catch (err) {
       throw err;

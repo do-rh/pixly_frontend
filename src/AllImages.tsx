@@ -36,16 +36,18 @@ function AllImages() {
   }
 
   return (
-    < div className="AllImages">
-      {images.length === 0
-        ? <h3>No images uploaded</h3>
-        : images.map(image =>
-          <div key={image.id} className="AllImages-imageCard">
-            <Link to={`/image/${image.id}`}>
-              <ImageCard src={image.imgUrl} caption={image.caption} dims={{'width': image.width, 'length': image.length}} />
-            </Link>
-          </div>)
-      }
+    <div className="container AllImages">
+      <div className="row">
+        {images.length === 0
+          ? <h3>No images uploaded</h3>
+          : images.map(image =>
+            <div key={image.id} className="AllImages-imageCard col-sm">
+              <Link to={`/image/${image.id}`}>
+                <ImageCard src={image.imgUrl} caption={image.caption} dims={{ 'width': image.width, 'length': image.length }} />
+              </Link>
+            </div>)
+        }
+      </div>
     </div >
   )
 }

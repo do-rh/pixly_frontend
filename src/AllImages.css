@@ -1,7 +1,11 @@
 .AllImages-imageCard{
-  display:inline
+  display:inline;
 }
 
 .AllImages-imageCard > a{
   text-decoration: none;
+}
+
+.AllImages {
+  margin: 1em;
 }

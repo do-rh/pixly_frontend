@@ -1,5 +1,8 @@
 .upload-form{
+    width: 50%;
     margin: 1em;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: left;
 }
 
 input { 
@@ -8,5 +11,4 @@ input {
 
 label {
     font-weight: bold;
-    
 }

@@ -1,0 +1,14 @@
+.edit-container {
+    position: relative;
+}
+
+.img-being-edited {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    max-width: 650px;
+    max-height: 550px;
+}

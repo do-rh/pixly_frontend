@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
 import ImageCard from './ImageCard';
 import UploadImgForm from './UploadImgForm';
@@ -45,10 +46,17 @@ function ImageUpload() {
   return (
     <div>
       {image
-        ? <ImageCard src={image.imgUrl} caption={image.caption} />
+        ? (
+          <React.Fragment>
+            <ImageCard src={image.imgUrl} caption={image.caption} />
+            <Link to={`/image/${image.id}`}>
+              <button className="btn btn-secondary">Edit Image</button>
+            </Link>
+          </React.Fragment>
+        )
         : <UploadImgForm handleImgUpload={handleImgUpload} />
       }
-    </div>
+    </div >
   );
 }
 

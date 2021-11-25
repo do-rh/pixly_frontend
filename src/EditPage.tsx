@@ -1,8 +1,8 @@
-import react, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 
-import PixlyApi from './PixlyAPI';
+import PixlyAPI from './PixlyAPI';
+import "./EditPage.css";
+import React from 'react';
 
 const EDIT_TYPES = [['rotate', 'Rotate'], ['bw', 'Black & White'], ['resize', 'Resize'],
 ['side_flip', 'Horizontal Flip'], ['top_flip', 'Vertical Flip'],
@@ -21,32 +21,27 @@ const EDIT_TYPES = [['rotate', 'Rotate'], ['bw', 'Black & White'], ['resize', 'R
 
 function EditPage({ id, handleEdit, fileLocation }) {
 
-    async function saveEdits() {
-        const result = await PixlyApi.saveEdits(id, fileLocation, 'caption');
-        return <Redirect push to={`/image/${result.imgUrl}`} />;
-    }
-
     async function handleClick(evt) {
         evt.preventDefault();
-        const resp = await PixlyApi.edit(id, fileLocation, evt.target.id) //"successful"
-        console.log(resp, 'in EditPage');
+        const resp = await PixlyAPI.edit(id, fileLocation, evt.target.id) //"successful"
         handleEdit(resp)
     }
 
     return (
-        <div> {
-            EDIT_TYPES.map(editType => (
-                <button
-                    onClick={handleClick}
-                    id={editType[0]}
-                    key={editType[0]}>
-                    {editType[1]}
-                </button>
-            ))
-        }
-            <button onClick={saveEdits}>Save Edits!</button>
-        </div >
-
+        <React.Fragment>
+            <div className="list-group image-mutations col-4"> {
+                EDIT_TYPES.map(editType => (
+                    <button
+                        className="btn list-group-item list-group-item-primary"
+                        onClick={handleClick}
+                        id={editType[0]}
+                        key={editType[0]}>
+                        {editType[1]}
+                    </button>
+                ))
+            }
+            </div >
+        </React.Fragment>
     )
 
 }

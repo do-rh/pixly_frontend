@@ -1,3 +1,5 @@
+import "./ImageBeingEdited.css";
+const API_URL = 'https://pixly-dorish.herokuapp.com';
 
 /** Card: displays current image edits.
  * 
@@ -12,13 +14,13 @@
  */
 
 function ImageBeingEdited({ fileLocation }) {
-    const path = fileLocation.replace("./temp_image_edits", "");
+    console.log(fileLocation);
+    const path = fileLocation.replace("../tmp", "");
     return (
-        <div className="Image-card">
-            <img className="Image-card-image"
-                src={`http://localhost:5000/editimages${path}`}
+        <div className="edit-container col-6">
+            <img className="img-being-edited"
+                src={`${API_URL}/editimages${path}`}
                 alt="edited img"
-                style={{ "width": "400px" }}
                 key={Date.now()} />
         </div>
     );

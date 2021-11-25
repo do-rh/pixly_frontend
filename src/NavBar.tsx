@@ -13,9 +13,9 @@ import "./NavBar.css";
 function NavBar() {
     return (
         <div className="NavBar">
-            <NavLink to="/">Pixly</NavLink>
-            <NavLink to="/upload">Upload</NavLink>
-            <NavLink to="/all">All</NavLink>
+            <NavLink exact to="/">Pixly</NavLink>
+            <NavLink exact to="/upload">Upload</NavLink>
+            <NavLink exact to="/all">All</NavLink>
         </div>
     )
 }

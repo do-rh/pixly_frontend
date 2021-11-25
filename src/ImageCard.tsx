@@ -23,7 +23,7 @@ function ImageCard({ src, caption, dims }: CardPropsInterface) {
         <div className="Image-card">
             <img className="Image-card-image" src={src} alt="uploaded img" style={{ "width": "400px" }} />
             <i className="Image-card-caption">{caption}</i>
-            {(dims) && <b className="Image-card-dimensions">{dims.width}x{dims.length}</b>}
+            {(dims?.width) && <b className="Image-card-dimensions">{dims.width}x{dims.length}px</b>}
             
         </div>
     );
